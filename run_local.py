@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 """
-Local application for Angelina Braille Reader inference
+Local application for Brailler Reader bot local app
 """
 import argparse
 import os
