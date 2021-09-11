@@ -1,5 +1,5 @@
 from loader import dp, bot
-from keyboards.default.MainMenu import main_menu
+from keyboards.default.MainMenu import main_menu, set_settings
 
 # MongoDB init
 from utils.db_api import users_db
@@ -118,7 +118,7 @@ async def process_PasswordEnter(message: types.Message, state: FSMContext):
         if profile_result != None:
             profiles_db.find_and_modify({'login': data['login'], 'password': password},
                                         {'$set': {'last_login': datetime.now()}})
-            await message.answer("{} вы зарегистрировались, выберите следующие разделы, чтобы использовать бот".format(message.from_user.full_name), reply_markup=main_menu)
+            await message.answer("{} вы зарегистрировались, выберите следующие разделы, чтобы использовать бот".format(message.from_user.full_name), reply_markup=set_settings)
             await state.finish()
         else:
             await Form.SuppotLoginSelect.set()
@@ -130,6 +130,6 @@ async def process_PasswordEnter(message: types.Message, state: FSMContext):
                                            sep='\n', ), reply_markup=markup, parse_mode=ParseMode.MARKDOWN, )
 
         update_result = users_db.find_and_modify({"chat.id": message.chat.id}, {'$set': {'login': data['login']}})
-        # print(update_result)
+        print(update_result)
 
 

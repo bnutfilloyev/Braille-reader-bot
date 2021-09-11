@@ -22,7 +22,6 @@ class LineChar:
         self.char = '' # char to display in printed text
         self.labeling_char = '' # char to display in rects labeling
 
-
 class Line:
     STEP_TO_W = 1.25
     LINE_THR = 0.6

@@ -35,8 +35,8 @@ inference_width = 1024
 model_weights = 'model.t7'
 params_fn = join(local_config.data_path, 'weights', 'param.txt')
 model_weights_fn = join(local_config.data_path, 'weights', model_weights)
-device = 'cuda:0'
-#device = 'cpu'
+# device = 'cuda:0'
+device = 'cpu'
 cls_thresh = 0.3
 nms_thresh = 0.02
 REFINE_COEFFS = [0.083, 0.092, -0.083, -0.013]  # Коэффициенты (в единицах h символа) для эмпирической коррекции
@@ -602,24 +602,19 @@ class BrailleInference:
 
 if __name__ == '__main__':
 
-    #img_filename_mask = r'D:\Programming.Data\Braille\web_uploaded\data\raw\*.*'
-    #img_filename_mask = r'D:\Programming.Data\Braille\ASI\Braile Photos and Scans\Turlom_Copybook_3-18\Turlom_Copybook10\Photo_Turlom_C10\Photo_Turlom_C10_8.jpg'
-    #img_filename_mask = r'D:\Programming.Data\Braille\ASI\Student_Book\56-61\IMG_20191109_195953.jpg'
-    img_filename_mask = r'D:\Programming.Data\Braille\ASI\Braile Photos and Scans\**\*.*'
+    img_filename_mask = r"../input/test001.jpeg"
 
-    #results_dir =       r'D:\Programming.Data\Braille\web_uploaded\re-processed200823'
-    results_dir =       r'D:\Programming.Data\Braille\ASI_results_NEW_EN\Braile Photos and Scans'
-    #results_dir =       r'D:\Programming.Data\Braille\Temp\New'
+    results_dir = r"../output/"
 
-    remove_labeled_from_filename = False
+    remove_labeled_from_filename = True
     find_orientation = True
-    process_2_sides = False
+    process_2_sides = True
     repeat_on_aligned = False
     verbose = 0
     draw_redined = BrailleInference.DRAW_REFINED
 
     recognizer = BrailleInference(verbose=verbose)
-    recognizer.process_dir_and_save(img_filename_mask, results_dir, lang='RU', extra_info=None, draw_refined=draw_redined,
+    recognizer.process_dir_and_save(img_filename_mask, results_dir, lang='EN', extra_info=None, draw_refined=draw_redined,
                                     remove_labeled_from_filename=remove_labeled_from_filename,
                                     find_orientation=find_orientation,
                                     process_2_sides=process_2_sides,

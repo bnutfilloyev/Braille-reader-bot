@@ -24,5 +24,3 @@ async def process_authorization(message: types.Message, state: FSMContext):
         ),
         reply_markup=keyboard
     )
-
-    # await on_start_command_notify(message)
