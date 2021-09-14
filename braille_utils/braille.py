@@ -1,7 +1,3 @@
-import numpy as np
-from PIL import Image
-import PIL
-
 global void
 global a
 global b
@@ -223,3 +219,6 @@ def brailleToTextArray(array):
         for a_key in charToArray:
             if charToArray[a_key] == key:
                 new_chars = new_chars + str(a_key)
+
+if __name__=="__main__":
+    
