@@ -10,5 +10,6 @@ class Form(StatesGroup):
     AuthMongo = State()
     SetLang = State()
     GetPhoto = State()
+    TextToBraille = State()
     Menu = State()
     Sample = State()
