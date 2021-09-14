@@ -1,1 +1,1 @@
-from .MainMenu import main_menu
+from .MainMenu import main_menu, set_settings

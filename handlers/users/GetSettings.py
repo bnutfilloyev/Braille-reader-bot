@@ -12,5 +12,6 @@ async def set_settings(msg: types.Message):
 
 @dp.message_handler(text="Text -> Braille")
 async def set_settings(msg: types.Message):
-    await msg.answer("API kutilmoqdaaaaa......")
+    await msg.answer("Braillega o'tkazish kerak bo'lgan rasmni yuboring!", reply_markup=main_menu)
+    await Form.TextToBraille.set()
     # await Form.GetPhoto.set()

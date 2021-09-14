@@ -1,14 +1,20 @@
+import typing
+
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from uuid import uuid4
 import os
 
-from keyboards.default import main_menu
-from loader import dp
+from keyboards.default import main_menu, set_settings
+from loader import dp, bot
 from states.UserStats import Form
 
+import requests
+from data import mathpix
+import json
+
 @dp.message_handler(text="📝Отправить картинку", state=Form.GetPhoto)
-async def get_photo_message(msg: types.Message, state: FSMContext):
+async def get_photo_message(msg: types.Message):
     await msg.answer("Отправить изображение Брайля", reply_markup=types.ReplyKeyboardRemove())
 
 @dp.message_handler(content_types='photo', state=Form.GetPhoto)
@@ -32,3 +38,34 @@ async def get_photo(message: types.Message, state: FSMContext):
 
         await state.finish()
 
+@dp.message_handler(text="📝Отправить картинку", state=Form.TextToBraille)
+async def get_photo_message(msg: types.Message):
+    await msg.answer("Rasm yuboring!", reply_markup=types.ReplyKeyboardRemove())
+
+@dp.message_handler(content_types='photo', state=Form.TextToBraille)
+async def get_photo(message: types.Message, state: FSMContext):
+    text = uuid4()
+
+    await message.photo[-1].download('input/{}.jpg'.format(text))
+
+    r = mathpix.latex({
+        'src': mathpix.image_uri('input/{}.jpg'.format(text)),
+        'ocr': ['math', 'text'],
+        'skip_recrop': True,
+        'formats': ['text', 'latex_styled', 'asciimath', 'mathml'],
+        'format_options': {
+            'text': {
+                'transforms': ['rm_spaces', 'rm_newlines'],
+                'math_delims': ['$', '$']
+            },
+            'latex_styled': {'transforms': ['rm_spaces']}
+        }
+    })
+
+    print("\nResult object: \n{}".format(json.dumps(r, indent=4, sort_keys=True)))
+    await bot.send_message(message.chat.id, f"<code>{r['asciimath']}</code>", reply_markup=main_menu)
+    # await message.answer("\nResult object: \n{}".format(json.dumps(r, indent=4, sort_keys=True)), reply_markup=main_menu)
+
+@dp.message_handler(text="↪️ Ortga qaytish", state="*")
+async def back_menu(msg: types.Message):
+    await msg.answer("Iltimos tanlang", reply_markup=set_settings)
