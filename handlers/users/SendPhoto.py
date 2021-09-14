@@ -43,9 +43,7 @@ async def get_photo_message(msg: types.Message):
 @dp.message_handler(content_types='photo', state=Form.TextToBraille)
 async def get_photo(message: types.Message, state: FSMContext):
     text = uuid4()
-
     await message.photo[-1].download('input/{}.jpg'.format(text))
-
     r = mathpix.latex({
         'src': mathpix.image_uri('input/{}.jpg'.format(text)),
         'ocr': ['math', 'text'],
@@ -64,6 +62,8 @@ async def get_photo(message: types.Message, state: FSMContext):
     await bot.send_message(message.chat.id, f"<code>{writeText(r['asciimath'])}</code>", reply_markup=main_menu)
     # await message.answer("\nResult object: \n{}".format(json.dumps(r, indent=4, sort_keys=True)), reply_markup=main_menu)
 
-@dp.message_handler(text="↪️ Ortga qaytish", state="*")
-async def back_menu(msg: types.Message):
+
+@dp.message_handler(text="↪️ Ortga qaytish", state='*')
+async def back_menu(msg: types.Message, state: FSMContext):
     await msg.answer("Iltimos tanlang", reply_markup=set_settings)
+    await state.finish()

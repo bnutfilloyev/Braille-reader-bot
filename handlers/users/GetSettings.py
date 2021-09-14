@@ -1,6 +1,7 @@
 from aiogram import types
+from aiogram.dispatcher import FSMContext
 
-from keyboards.default import main_menu
+from keyboards.default import main_menu, set_settings
 from loader import dp
 from states.UserStats import Form
 
@@ -14,4 +15,3 @@ async def set_settings(msg: types.Message):
 async def set_settings(msg: types.Message):
     await msg.answer("Braillega o'tkazish kerak bo'lgan rasmni yuboring!", reply_markup=main_menu)
     await Form.TextToBraille.set()
-    # await Form.GetPhoto.set()
