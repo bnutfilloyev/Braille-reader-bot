@@ -220,5 +220,5 @@ def brailleToTextArray(array):
             if charToArray[a_key] == key:
                 new_chars = new_chars + str(a_key)
 
-if __name__=="__main__":
-    
+# if __name__=="__main__":
+#
