@@ -1,5 +1,3 @@
-import typing
-
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from uuid import uuid4
@@ -8,7 +6,7 @@ import os
 from keyboards.default import main_menu, set_settings
 from loader import dp, bot
 from states.UserStats import Form
-
+from braille_utils.braille import writeText
 import requests
 from data import mathpix
 import json
@@ -63,7 +61,7 @@ async def get_photo(message: types.Message, state: FSMContext):
     })
 
     print("\nResult object: \n{}".format(json.dumps(r, indent=4, sort_keys=True)))
-    await bot.send_message(message.chat.id, f"<code>{r['asciimath']}</code>", reply_markup=main_menu)
+    await bot.send_message(message.chat.id, f"<code>{writeText(r['asciimath'])}</code>", reply_markup=main_menu)
     # await message.answer("\nResult object: \n{}".format(json.dumps(r, indent=4, sort_keys=True)), reply_markup=main_menu)
 
 @dp.message_handler(text="↪️ Ortga qaytish", state="*")
