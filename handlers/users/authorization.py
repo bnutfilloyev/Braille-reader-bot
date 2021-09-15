@@ -115,6 +115,9 @@ async def process_PasswordEnter(message: types.Message, state: FSMContext):
         print(("GOT\nLogin: {}\npassword: {}\n").format(data['login'], password))
 
         profile_result = profiles_db.find_one(filter={'login': data['login'], 'password': password})
+        
+        print(profiles_db)
+        print(profile_result)
         if profile_result != None:
             profiles_db.find_and_modify({'login': data['login'], 'password': password},
                                         {'$set': {'last_login': datetime.now()}})
