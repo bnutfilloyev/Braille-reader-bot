@@ -9,6 +9,7 @@ import os
 import json
 import glob
 import sys
+sys.path.append("..")
 import local_config
 sys.path.append(local_config.global_3rd_party)
 from os.path import join
