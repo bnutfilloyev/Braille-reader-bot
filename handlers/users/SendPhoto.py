@@ -59,8 +59,10 @@ async def get_photo(message: types.Message, state: FSMContext):
     })
 
     print("\nResult object: \n{}".format(json.dumps(r, indent=4, sort_keys=True)))
-    await bot.send_message(message.chat.id, f"<code>{writeText(r['asciimath'])}</code>", reply_markup=main_menu)
-    # await message.answer("\nResult object: \n{}".format(json.dumps(r, indent=4, sort_keys=True)), reply_markup=main_menu)
+    with open(f"output/{text}.brl", 'w+') as f:
+        f.writelines(writeText(r['asciimath']))
+    with open(f"output/{text}.brl", 'rb') as f:
+        await message.answer_document(f, caption=f"<code>{writeText(r['asciimath'])}</code>")
 
 
 @dp.message_handler(text="↪️ Ortga qaytish", state='*')
