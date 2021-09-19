@@ -22,7 +22,7 @@ async def get_photo(message: types.Message, state: FSMContext):
     await message.photo[-1].download('input/{}.jpg'.format(text))
     await message.answer("Фото принято\n\n"
                          "Подождите пожалуйста ...")
-
+    os.system('pwd')
     os.system('python run_local.py -l EN -o input/{}.jpg output'.format(text))
 
     with open("output/{}.marked.jpg".format(text), 'rb') as photo:
