@@ -63,7 +63,7 @@ async def get_photo(message: types.Message, state: FSMContext):
         f.writelines(writeText(r['asciimath']))
     with open(f"output/{text}.brl", 'rb') as f:
         send_text = f"<b>Photo text:</b> <code>{r['asciimath']}</code>\n\n"
-        # send_text += f"<b>Latex style</b>: <code>{r['latex_styled']}</code>\n\n"
+        send_text += f"<b>Latex style</b>: <code>{r['latex_styled']}</code>\n\n"
         send_text += f"<b>Braille text:</b> <code>{writeText(r['asciimath'])}</code>\n"
 
         await message.answer_document(f, caption=send_text, )
