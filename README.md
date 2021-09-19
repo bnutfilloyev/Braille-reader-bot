@@ -27,7 +27,7 @@
 
 
 ## Сценарий компиляции и запуска
- 
+``` 
 git clone https://git.asi.ru/Fazo_Team/braille-reader-bot
 
 pip install -r requirements.txt
@@ -35,8 +35,7 @@ pip install -r requirements.txt
 wget -O weights/model.t7 http://angelina-reader.ovdv.ru/retina_chars_eced60.clr.008
 
 python3 app.py
-
-
+```
 ## Примеры использования
 
 
@@ -73,7 +72,8 @@ The programming language used, indicating the version (Python 3.8+), if signific
 
 
 ## Compilation and launch scenario
-`
+
+```
 git clone https://git.asi.ru/Fazo_Team/braille-reader-bot
 
 pip install -r requirements.txt
@@ -81,14 +81,8 @@ pip install -r requirements.txt
 wget -O weights/model.t7 http://angelina-reader.ovdv.ru/retina_chars_eced60.clr.008
 
 python3 app.py
-`
-git clone https://git.asi.ru/Fazo_Team/braille-reader-bot
+```
 
-pip install -r requirements.txt
-
-wget -O weights/model.t7 http://angelina-reader.ovdv.ru/retina_chars_eced60.clr.008
-
-python3 app.py
 
 ## Use cases and examples
 
