@@ -62,7 +62,11 @@ async def get_photo(message: types.Message, state: FSMContext):
     with open(f"output/{text}.brl", 'w+') as f:
         f.writelines(writeText(r['asciimath']))
     with open(f"output/{text}.brl", 'rb') as f:
-        await message.answer_document(f, caption=f"<code>{writeText(r['asciimath'])}</code>")
+        send_text = f"<b>Photo text:</b> <code>{r['asciimath']}</code>\n"
+        send_text += f"<b>Latex style</b>: <code>{r['latex_styled']}</code>\n\n"
+        send_text += f"<b>Braille text:</b> <code>{writeText(r['asciimath'])}</code>\n"
+
+        await message.answer_document(f, caption=send_text, )
 
 
 @dp.message_handler(text="↪️ Ortga qaytish", state='*')

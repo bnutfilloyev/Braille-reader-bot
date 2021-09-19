@@ -16,18 +16,23 @@ from states.UserStats import Form
 
 #for datetime
 from datetime import datetime
-
+import json
 
 @dp.message_handler(content_types=['contact'], state=Form.Phone)
-async def contact_hand(message, state: FSMContext):
+async def contact_hand(message: types.Message, state: FSMContext):
     textback = ""
     async with state.proxy() as data:
         data['phone'] = str(message.contact.phone_number).replace('+', '').replace(' ', '')
         req_db = users_db.update_one({'phone': data['phone']}, {'$set': {
             "phone": data['phone'],
-            "updated": datetime.now()
+            "updated": datetime.now(),
+            "user_id": message.from_user.id,
+            "user_info": message.from_user.full_name,
+            "username": message.from_user.username,
             }
         }, upsert=True)
+        # print(message)
+
 
         if (req_db.matched_count):
             textback = "Я рад снова видеть Вас {}".format(dict(message['chat'])['first_name'])
